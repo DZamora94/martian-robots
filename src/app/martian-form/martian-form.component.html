@@ -1,3 +1,20 @@
-<p>
-  martian-form works!
-</p>
+<form [formGroup]="martianForm!" class="full-width">
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Grid Dimensions</mat-label>
+    <input formControlName="gridDimensions" matInput />
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Robot(s) Command</mat-label>
+    <textarea rows="8" formControlName="robotCommand" matInput></textarea>
+  </mat-form-field>
+  <button
+    class="full-width"
+    [disabled]="!martianForm!.valid"
+    mat-raised-button
+    color="primary"
+    (click)="submitForm()"
+  >
+    Submit
+  </button>
+</form>
