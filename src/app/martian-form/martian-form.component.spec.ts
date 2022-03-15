@@ -24,6 +24,10 @@ describe('MartianFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it(`outputCommands has default value`, () => {
+    expect(component.outputCommands).toEqual([]);
+  });
+
   describe('initForm Method', () => {
     it('martianForm variable has value', () => {
       fixture.detectChanges();
@@ -31,7 +35,7 @@ describe('MartianFormComponent', () => {
       expect(component.martianForm).toBeTruthy();
       expect(component.martianForm?.value).toBeTruthy();
       expect(component.martianForm?.valid).toBeFalse();
-      expect(component.martianForm?.value.planetDimensions).toBe(null);
+      expect(component.martianForm?.value.gridDimensions).toBe(null);
       expect(component.martianForm?.value.robotCommand).toBe(null);
     });
   });
