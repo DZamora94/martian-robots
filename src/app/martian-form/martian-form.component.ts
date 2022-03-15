@@ -41,9 +41,7 @@ export class MartianFormComponent implements OnInit {
     console.log('FORM VALUE ON SUBMIT:', fullCommand);
 
     const grid = this.createGrid(fullCommand.gridDimensions);
-    console.log('GRID DIMENSIONS: ', grid);
-
-    this.manageRobotCommands(fullCommand.robotCommand);
+    this.manageRobotCommands(fullCommand.robotCommand, grid);
   }
 
   private createGrid(gridDimensions: string): Grid {
@@ -56,7 +54,7 @@ export class MartianFormComponent implements OnInit {
     );
   }
 
-  private manageRobotCommands(command: string) {
+  private manageRobotCommands(command: string, grid: Grid) {
     // Each robot command on an element of the array
     const robotsCommandArray = (command as string).split('\n\n');
 
@@ -65,7 +63,7 @@ export class MartianFormComponent implements OnInit {
       const robotCommand = robotCommandValue.split('\n');
       const robot = this.createRobot(robotCommand[0]);
 
-      this.manageInstructions(robot, robotCommand[1]);
+      this.manageInstructions(robot, robotCommand[1], grid);
 
       this.buildOutput(robot);
     });
@@ -82,14 +80,14 @@ export class MartianFormComponent implements OnInit {
     });
   }
 
-  private manageInstructions(robot: Robot, instructions: string) {
+  private manageInstructions(robot: Robot, instructions: string, grid: Grid) {
     // Each instruction for the Robot as an element of an array
     const robotInstructionArray = instructions.split('');
 
     // For loop with the instructions array
     for (let index = 0; index < robotInstructionArray.length; index++) {
       const instruction = robotInstructionArray[index];
-      robot.manageInstruction(instruction as Instruction);
+      robot.manageInstruction(instruction as Instruction, grid);
     }
   }
 
