@@ -1,6 +1,4 @@
-// Parameters: xCoordinate, yCoordinate, orientation (N,S,E,W)
-
-// Functions: turnLeft, turnRight, moveForward
+import { Grid } from './grid';
 
 export type Orientation = 'N' | 'S' | 'E' | 'W';
 export type Instruction = 'L' | 'R' | 'F';
@@ -13,12 +11,13 @@ export interface Position {
 
 export class Robot {
   public position: Position;
+  public isLost = false;
 
   constructor(position: Position) {
     this.position = position;
   }
 
-  public manageInstruction(instruction: Instruction): Position {
+  public manageInstruction(instruction: Instruction, grid: Grid): Position {
     switch (instruction) {
       case 'L':
         this.position.orientation = this.turnLeft(this.position.orientation);
@@ -27,7 +26,7 @@ export class Robot {
         this.position.orientation = this.turnRight(this.position.orientation);
         break;
       case 'F':
-        this.position = this.moveForward(this.position);
+        this.position = this.moveForward(this.position, grid);
         break;
       default:
         throw Error('INVALID INSTRUCTION');
@@ -79,23 +78,43 @@ export class Robot {
     return newOrientation;
   }
 
-  private moveForward(position: Position): Position {
+  private moveForward(position: Position, grid: Grid): Position {
     switch (position.orientation) {
       case 'N':
-        position.yCoordinate++;
+        if (grid.yGrid >= position.yCoordinate + 1) {
+          position.yCoordinate++;
+        } else {
+          this.manageOffTheGridMovement(position, grid);
+        }
         break;
       case 'S':
-        position.yCoordinate--;
+        if (position.yCoordinate > 0) {
+          position.yCoordinate--;
+        } else {
+          this.manageOffTheGridMovement(position, grid);
+        }
         break;
       case 'E':
-        position.xCoordinate++;
+        if (grid.xGrid >= position.xCoordinate + 1) {
+          position.xCoordinate++;
+        } else {
+          this.manageOffTheGridMovement(position, grid);
+        }
         break;
       case 'W':
-        position.xCoordinate--;
+        if (position.xCoordinate > 0) {
+          position.xCoordinate--;
+        } else {
+          this.manageOffTheGridMovement(position, grid);
+        }
         break;
       default:
         throw Error('INVALID POSITION when MOVING FORWARD');
     }
     return position;
+  }
+
+  private manageOffTheGridMovement(position: Position, grid: Grid) {
+    this.isLost = true;
   }
 }
