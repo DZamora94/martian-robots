@@ -4,7 +4,7 @@
 
 export type Orientation = 'N' | 'S' | 'E' | 'W';
 
-export class Rover {
+export class Robot {
   public xCoordinate: number;
   public yCoordinate: number;
   public orientation: Orientation;
