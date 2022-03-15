@@ -1,4 +1,4 @@
-Planet Dimensions: 5 3
+Grid Dimensions: 5 3
 
 
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Grid } from 'src/classes/grid';
 import { Instruction, Orientation, Robot } from 'src/classes/robot';
 
 export interface MartianCommandForm {
@@ -34,10 +35,25 @@ export class MartianFormComponent implements OnInit {
   }
 
   public submitForm() {
+    this.outputCommands = [];
+
     const fullCommand: MartianCommandForm = this.martianForm?.value;
     console.log('FORM VALUE ON SUBMIT:', fullCommand);
 
+    const grid = this.createGrid(fullCommand.gridDimensions);
+    console.log('GRID DIMENSIONS: ', grid);
+
     this.manageRobotCommands(fullCommand.robotCommand);
+  }
+
+  private createGrid(gridDimensions: string): Grid {
+    // Grid dimensions on an array
+    const gridDimensionsArray = (gridDimensions as string).split(' ');
+    // Create Grid with dimensions array
+    return new Grid(
+      parseInt(gridDimensionsArray[0]),
+      parseInt(gridDimensionsArray[1])
+    );
   }
 
   private manageRobotCommands(command: string) {
@@ -50,6 +66,8 @@ export class MartianFormComponent implements OnInit {
       const robot = this.createRobot(robotCommand[0]);
 
       this.manageInstructions(robot, robotCommand[1]);
+
+      this.buildOutput(robot);
     });
   }
 
@@ -73,6 +91,12 @@ export class MartianFormComponent implements OnInit {
       const instruction = robotInstructionArray[index];
       robot.manageInstruction(instruction as Instruction);
     }
-    console.log('FINAL POSITION: ', robot.position);
+  }
+
+  private buildOutput(robot: Robot) {
+    let finalPosition = `${robot.position.xCoordinate} ${robot.position.yCoordinate} ${robot.position.orientation}`;
+
+    console.log('FINAL POSITION: ', finalPosition);
+    this.outputCommands.push(finalPosition);
   }
 }
