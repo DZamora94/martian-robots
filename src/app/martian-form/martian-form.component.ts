@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Grid } from 'src/classes/grid';
-import { Instruction, Orientation, Robot } from 'src/classes/robot';
-
-export interface MartianCommandForm {
-  gridDimensions: string;
-  robotCommand: string;
-}
+import { Grid } from '../../app/classes/grid';
+import { Robot } from '../classes/robot';
+import {
+  MartianCommandForm,
+  Orientation,
+  Instruction,
+} from '../models/martian.model';
 
 @Component({
   selector: 'app-martian-form',
@@ -38,7 +38,6 @@ export class MartianFormComponent implements OnInit {
     this.outputCommands = [];
 
     const fullCommand: MartianCommandForm = this.martianForm?.value;
-    console.log('FORM VALUE ON SUBMIT:', fullCommand);
 
     const grid = this.createGrid(fullCommand.gridDimensions);
     this.manageRobotCommands(fullCommand.robotCommand, grid);
@@ -48,10 +47,10 @@ export class MartianFormComponent implements OnInit {
     // Grid dimensions on an array
     const gridDimensionsArray = (gridDimensions as string).split(' ');
     // Create Grid with dimensions array
-    return new Grid(
-      parseInt(gridDimensionsArray[0]),
-      parseInt(gridDimensionsArray[1])
-    );
+    return new Grid({
+      xCoordinate: parseInt(gridDimensionsArray[0]),
+      yCoordinate: parseInt(gridDimensionsArray[1]),
+    });
   }
 
   private manageRobotCommands(command: string, grid: Grid) {

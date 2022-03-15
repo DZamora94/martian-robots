@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import {
-  MartianCommandForm,
-  MartianFormComponent,
-} from './martian-form.component';
+import { MartianFormComponent } from './martian-form.component';
+import { MartianCommandForm } from '../models/martian.model';
 
 describe('MartianFormComponent', () => {
   let component: MartianFormComponent;

@@ -1,13 +1,5 @@
+import { Position, Instruction, Orientation } from '../models/martian.model';
 import { Grid } from './grid';
-
-export type Orientation = 'N' | 'S' | 'E' | 'W';
-export type Instruction = 'L' | 'R' | 'F';
-
-export interface Position {
-  xCoordinate: number;
-  yCoordinate: number;
-  orientation: Orientation;
-}
 
 export class Robot {
   public position: Position;
@@ -81,7 +73,7 @@ export class Robot {
   private moveForward(position: Position, grid: Grid): Position {
     switch (position.orientation) {
       case 'N':
-        if (grid.yGrid >= position.yCoordinate + 1) {
+        if (grid.gridLimits.yCoordinate >= position.yCoordinate + 1) {
           position.yCoordinate++;
         } else {
           this.manageOffTheGridMovement(position, grid);
@@ -95,7 +87,7 @@ export class Robot {
         }
         break;
       case 'E':
-        if (grid.xGrid >= position.xCoordinate + 1) {
+        if (grid.gridLimits.xCoordinate >= position.xCoordinate + 1) {
           position.xCoordinate++;
         } else {
           this.manageOffTheGridMovement(position, grid);
@@ -116,15 +108,15 @@ export class Robot {
 
   private manageOffTheGridMovement(position: Position, grid: Grid) {
     const isScent = !!grid.findScentInPosition({
-      xPosition: position.xCoordinate,
-      yPosition: position.yCoordinate,
+      xCoordinate: position.xCoordinate,
+      yCoordinate: position.yCoordinate,
     });
     console.log('SCENT FOUND??', isScent);
     if (!isScent) {
       this.isLost = true;
       grid.scentPositions.push({
-        xPosition: position.xCoordinate,
-        yPosition: position.yCoordinate,
+        xCoordinate: position.xCoordinate,
+        yCoordinate: position.yCoordinate,
       });
       console.log(
         'I AM LOST!!, SCENT ADDED IN POSITION: ',
