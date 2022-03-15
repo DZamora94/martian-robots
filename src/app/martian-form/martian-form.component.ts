@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Instruction, Orientation, Robot } from 'src/classes/robot';
+
+export interface MartianCommandForm {
+  gridDimensions: string;
+  robotCommand: string;
+}
 
 @Component({
   selector: 'app-martian-form',
@@ -9,6 +15,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class MartianFormComponent implements OnInit {
   public martianForm?: FormGroup;
 
+  public outputCommands: string[] = [];
+
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
@@ -17,12 +25,54 @@ export class MartianFormComponent implements OnInit {
 
   private initForm() {
     this.martianForm = this.formBuilder.group({
-      gridDimensions: [null, Validators.required],
+      gridDimensions: [
+        null,
+        [Validators.required, Validators.pattern(/^\d{1,2} \d{1,2}$/)],
+      ],
       robotCommand: [null, Validators.required],
     });
   }
 
   public submitForm() {
-    console.log(this.martianForm?.value);
+    const fullCommand: MartianCommandForm = this.martianForm?.value;
+    console.log('FORM VALUE ON SUBMIT:', fullCommand);
+
+    this.manageRobotCommands(fullCommand.robotCommand);
+  }
+
+  private manageRobotCommands(command: string) {
+    // Each robot command on an element of the array
+    const robotsCommandArray = (command as string).split('\n\n');
+
+    // Loop for each robot command
+    robotsCommandArray.forEach((robotCommandValue) => {
+      const robotCommand = robotCommandValue.split('\n');
+      const robot = this.createRobot(robotCommand[0]);
+
+      this.manageInstructions(robot, robotCommand[1]);
+    });
+  }
+
+  private createRobot(position: string): Robot {
+    // Position coordenates and orientation of the Robot in an array
+    const robotInitPositionArray = position.split(' ');
+    // Create new Robot with coordinates and orientation array
+    return new Robot({
+      xCoordinate: parseInt(robotInitPositionArray[0]),
+      yCoordinate: parseInt(robotInitPositionArray[1]),
+      orientation: robotInitPositionArray[2] as Orientation,
+    });
+  }
+
+  private manageInstructions(robot: Robot, instructions: string) {
+    // Each instruction for the Robot as an element of an array
+    const robotInstructionArray = instructions.split('');
+
+    // For loop with the instructions array
+    for (let index = 0; index < robotInstructionArray.length; index++) {
+      const instruction = robotInstructionArray[index];
+      robot.manageInstruction(instruction as Instruction);
+    }
+    console.log('FINAL POSITION: ', robot.position);
   }
 }
