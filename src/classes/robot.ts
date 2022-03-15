@@ -3,25 +3,99 @@
 // Functions: turnLeft, turnRight, moveForward
 
 export type Orientation = 'N' | 'S' | 'E' | 'W';
+export type Instruction = 'L' | 'R' | 'F';
+
+export interface Position {
+  xCoordinate: number;
+  yCoordinate: number;
+  orientation: Orientation;
+}
 
 export class Robot {
-  public xCoordinate: number;
-  public yCoordinate: number;
-  public orientation: Orientation;
+  public position: Position;
 
-  constructor(
-    xCoordinate: number,
-    yCoordinate: number,
-    orientation: Orientation
-  ) {
-    this.xCoordinate = xCoordinate;
-    this.yCoordinate = yCoordinate;
-    this.orientation = orientation;
+  constructor(position: Position) {
+    this.position = position;
   }
 
-  public turnLeft() {}
+  public manageInstruction(instruction: Instruction): Position {
+    switch (instruction) {
+      case 'L':
+        this.position.orientation = this.turnLeft(this.position.orientation);
+        break;
+      case 'R':
+        this.position.orientation = this.turnRight(this.position.orientation);
+        break;
+      case 'F':
+        this.position = this.moveForward(this.position);
+        break;
+      default:
+        throw Error('INVALID INSTRUCTION');
+    }
+    return this.position;
+  }
 
-  public turnRight() {}
+  private turnLeft(orientation: Orientation): Orientation {
+    let newOrientation: Orientation;
+    switch (orientation) {
+      case 'N':
+        newOrientation = 'W';
+        break;
+      case 'S':
+        newOrientation = 'E';
+        break;
+      case 'E':
+        newOrientation = 'N';
+        break;
+      case 'W':
+        newOrientation = 'S';
+        break;
+      default:
+        newOrientation = orientation;
+        throw Error('INVALID POSITION when TURNING LEFT');
+    }
+    return newOrientation;
+  }
 
-  public moveForward() {}
+  private turnRight(orientation: Orientation): Orientation {
+    let newOrientation: Orientation;
+    switch (orientation) {
+      case 'N':
+        newOrientation = 'E';
+        break;
+      case 'S':
+        newOrientation = 'W';
+        break;
+      case 'E':
+        newOrientation = 'S';
+        break;
+      case 'W':
+        newOrientation = 'N';
+        break;
+      default:
+        newOrientation = orientation;
+        throw Error('INVALID POSITION when TURNING RIGHT');
+    }
+    return newOrientation;
+  }
+
+  private moveForward(position: Position): Position {
+    switch (position.orientation) {
+      case 'N':
+        position.yCoordinate++;
+        break;
+      case 'S':
+        position.yCoordinate--;
+        break;
+      case 'E':
+        position.xCoordinate++;
+        break;
+      case 'W':
+        position.xCoordinate--;
+        break;
+      default:
+        throw Error('INVALID POSITION when MOVING FORWARD');
+    }
+    return position;
+  }
 }

@@ -1,111 +1,189 @@
-import { Robot } from './robot';
+import { Position, Robot } from './robot';
 
 describe('Robot', () => {
   it('can load instance', () => {
-    const robot = new Robot(1, 1, 'N');
+    const position: Position = {
+      xCoordinate: 1,
+      yCoordinate: 1,
+      orientation: 'N',
+    };
+    const robot = new Robot({ ...position });
 
     expect(robot).toBeTruthy();
   });
 
   describe('turnLeft Method', () => {
     it('N orientation returns W orientation', () => {
-      const robot = new Robot(1, 1, 'N');
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 1,
+        orientation: 'N',
+      };
 
-      robot.turnLeft();
+      const robot = new Robot({ ...position });
 
-      expect(robot.orientation).toEqual('W');
+      const newPosition = robot.manageInstruction('L');
+
+      expect(robot.position).toEqual(newPosition);
+      expect(position).not.toEqual(newPosition);
     });
 
     it('S orientation returns E orientation', () => {
-      const robot = new Robot(1, 1, 'S');
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 1,
+        orientation: 'S',
+      };
+      const robot = new Robot({ ...position });
 
-      robot.turnLeft();
+      const newPosition = robot.manageInstruction('L');
 
-      expect(robot.orientation).toEqual('E');
+      expect(robot.position).toEqual(newPosition);
+      expect(position).not.toEqual(newPosition);
     });
 
     it('E orientation returns N orientation', () => {
-      const robot = new Robot(1, 1, 'E');
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 1,
+        orientation: 'E',
+      };
+      const robot = new Robot({ ...position });
 
-      robot.turnLeft();
+      const newPosition = robot.manageInstruction('L');
 
-      expect(robot.orientation).toEqual('N');
+      expect(robot.position).toEqual(newPosition);
+      expect(position).not.toEqual(newPosition);
     });
 
     it('W orientation returns S orientation', () => {
-      const robot = new Robot(1, 1, 'W');
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 1,
+        orientation: 'W',
+      };
+      const robot = new Robot({ ...position });
 
-      robot.turnLeft();
+      const newPosition = robot.manageInstruction('L');
 
-      expect(robot.orientation).toEqual('S');
+      expect(robot.position).toEqual(newPosition);
+      expect(position).not.toEqual(newPosition);
     });
   });
 
-  describe('turnRight Method', () => {
+  describe('turnRight method', () => {
     it('N orientation returns E orientation', () => {
-      const robot = new Robot(1, 1, 'N');
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 1,
+        orientation: 'N',
+      };
+      const robot = new Robot({ ...position });
 
-      robot.turnRight();
+      const newPosition = robot.manageInstruction('R');
 
-      expect(robot.orientation).toEqual('E');
+      expect(robot.position).toEqual(newPosition);
+      expect(position).not.toEqual(newPosition);
     });
 
     it('S orientation returns W orientation', () => {
-      const robot = new Robot(1, 1, 'S');
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 1,
+        orientation: 'S',
+      };
+      const robot = new Robot({ ...position });
 
-      robot.turnRight();
+      const newPosition = robot.manageInstruction('R');
 
-      expect(robot.orientation).toEqual('W');
+      expect(robot.position).toEqual(newPosition);
+      expect(position).not.toEqual(newPosition);
     });
 
     it('E orientation returns S orientation', () => {
-      const robot = new Robot(1, 1, 'E');
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 1,
+        orientation: 'E',
+      };
+      const robot = new Robot({ ...position });
 
-      robot.turnRight();
+      const newPosition = robot.manageInstruction('R');
 
-      expect(robot.orientation).toEqual('S');
+      expect(robot.position).toEqual(newPosition);
+      expect(position).not.toEqual(newPosition);
     });
 
     it('W orientation returns N orientation', () => {
-      const robot = new Robot(1, 1, 'W');
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 1,
+        orientation: 'W',
+      };
+      const robot = new Robot({ ...position });
 
-      robot.turnRight();
+      const newPosition = robot.manageInstruction('R');
 
-      expect(robot.orientation).toEqual('N');
+      expect(robot.position).toEqual(newPosition);
+      expect(position).not.toEqual(newPosition);
     });
   });
 
   describe('moveForward Method', () => {
     it('N orientation returns (y + 1) coordinate', () => {
-      const robot = new Robot(1, 1, 'N');
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 1,
+        orientation: 'N',
+      };
+      const robot = new Robot({ ...position });
 
-      robot.moveForward();
+      const newPosition = robot.manageInstruction('F');
 
-      expect(robot.yCoordinate).toEqual(2);
+      expect(robot.position).toEqual(newPosition);
+      expect(position).not.toEqual(newPosition);
     });
 
     it('S orientation returns (y - 1) coordinate', () => {
-      const robot = new Robot(1, 1, 'S');
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 1,
+        orientation: 'S',
+      };
+      const robot = new Robot({ ...position });
 
-      robot.moveForward();
+      const newPosition = robot.manageInstruction('F');
 
-      expect(robot.yCoordinate).toEqual(0);
+      expect(robot.position).toEqual(newPosition);
+      expect(position).not.toEqual(newPosition);
     });
 
     it('E orientation returns (x + 1) coordinate', () => {
-      const robot = new Robot(1, 1, 'E');
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 1,
+        orientation: 'E',
+      };
+      const robot = new Robot({ ...position });
 
-      robot.moveForward();
+      const newPosition = robot.manageInstruction('F');
 
-      expect(robot.xCoordinate).toEqual(2);
+      expect(robot.position).toEqual(newPosition);
+      expect(position).not.toEqual(newPosition);
     });
 
     it('W orientation returns (x - 1) coordinate', () => {
-      const robot = new Robot(1, 1, 'W');
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 1,
+        orientation: 'W',
+      };
+      const robot = new Robot({ ...position });
 
-      robot.moveForward();
+      const newPosition = robot.manageInstruction('F');
 
-      expect(robot.xCoordinate).toEqual(0);
+      expect(robot.position).toEqual(newPosition);
+      expect(position).not.toEqual(newPosition);
     });
   });
 });
