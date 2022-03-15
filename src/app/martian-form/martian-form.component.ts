@@ -47,10 +47,10 @@ export class MartianFormComponent implements OnInit {
     // Grid dimensions on an array
     const gridDimensionsArray = (gridDimensions as string).split(' ');
     // Create Grid with dimensions array
-    return new Grid(
-      parseInt(gridDimensionsArray[0]),
-      parseInt(gridDimensionsArray[1])
-    );
+    return new Grid({
+      xCoordinate: parseInt(gridDimensionsArray[0]),
+      yCoordinate: parseInt(gridDimensionsArray[1]),
+    });
   }
 
   private manageRobotCommands(command: string, grid: Grid) {

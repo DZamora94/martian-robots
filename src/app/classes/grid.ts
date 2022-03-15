@@ -1,22 +1,18 @@
-import { ScentPosition } from '../models/martian.model';
+import { Coordinates } from '../models/martian.model';
 
 export class Grid {
-  public xGrid: number;
-  public yGrid: number;
-  public scentPositions: ScentPosition[] = [];
+  public gridLimits: Coordinates;
+  public scentPositions: Coordinates[] = [];
 
-  constructor(xGrid: number, yGrid: number) {
-    this.xGrid = xGrid;
-    this.yGrid = yGrid;
+  constructor(gridLimits: Coordinates) {
+    this.gridLimits = gridLimits;
   }
 
-  public findScentInPosition(
-    position: ScentPosition
-  ): ScentPosition | undefined {
+  public findScentInPosition(position: Coordinates): Coordinates | undefined {
     return this.scentPositions.find(
       (scentPosition) =>
-        scentPosition.xPosition == position.xPosition &&
-        scentPosition.yPosition == position.yPosition
+        scentPosition.xCoordinate == position.xCoordinate &&
+        scentPosition.yCoordinate == position.yCoordinate
     );
   }
 }

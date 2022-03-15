@@ -1,5 +1,6 @@
-import { Position, Robot } from './robot';
+import { Position } from '../models/martian.model';
 import { Grid } from './grid';
+import { Robot } from './robot';
 
 describe('Robot', () => {
   it('can load instance', () => {
@@ -23,7 +24,7 @@ describe('Robot', () => {
         orientation: 'N',
       };
       const robot = new Robot({ ...position });
-      const grid = new Grid(3, 3);
+      const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
       const newPosition = robot.manageInstruction('L', grid);
 
@@ -38,7 +39,7 @@ describe('Robot', () => {
         orientation: 'S',
       };
       const robot = new Robot({ ...position });
-      const grid = new Grid(3, 3);
+      const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
       const newPosition = robot.manageInstruction('L', grid);
 
@@ -53,7 +54,7 @@ describe('Robot', () => {
         orientation: 'E',
       };
       const robot = new Robot({ ...position });
-      const grid = new Grid(3, 3);
+      const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
       const newPosition = robot.manageInstruction('L', grid);
 
@@ -68,7 +69,7 @@ describe('Robot', () => {
         orientation: 'W',
       };
       const robot = new Robot({ ...position });
-      const grid = new Grid(3, 3);
+      const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
       const newPosition = robot.manageInstruction('L', grid);
 
@@ -85,7 +86,7 @@ describe('Robot', () => {
         orientation: 'N',
       };
       const robot = new Robot({ ...position });
-      const grid = new Grid(3, 3);
+      const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
       const newPosition = robot.manageInstruction('R', grid);
 
@@ -100,7 +101,7 @@ describe('Robot', () => {
         orientation: 'S',
       };
       const robot = new Robot({ ...position });
-      const grid = new Grid(3, 3);
+      const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
       const newPosition = robot.manageInstruction('R', grid);
 
@@ -115,7 +116,7 @@ describe('Robot', () => {
         orientation: 'E',
       };
       const robot = new Robot({ ...position });
-      const grid = new Grid(3, 3);
+      const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
       const newPosition = robot.manageInstruction('R', grid);
 
@@ -130,7 +131,7 @@ describe('Robot', () => {
         orientation: 'W',
       };
       const robot = new Robot({ ...position });
-      const grid = new Grid(3, 3);
+      const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
       const newPosition = robot.manageInstruction('R', grid);
 
@@ -148,7 +149,7 @@ describe('Robot', () => {
           orientation: 'N',
         };
         const robot = new Robot({ ...position });
-        const grid = new Grid(3, 3);
+        const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
         const newPosition = robot.manageInstruction('F', grid);
 
@@ -163,7 +164,7 @@ describe('Robot', () => {
           orientation: 'S',
         };
         const robot = new Robot({ ...position });
-        const grid = new Grid(3, 3);
+        const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
         const newPosition = robot.manageInstruction('F', grid);
 
@@ -178,7 +179,7 @@ describe('Robot', () => {
           orientation: 'E',
         };
         const robot = new Robot({ ...position });
-        const grid = new Grid(3, 3);
+        const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
         const newPosition = robot.manageInstruction('F', grid);
 
@@ -193,7 +194,7 @@ describe('Robot', () => {
           orientation: 'W',
         };
         const robot = new Robot({ ...position });
-        const grid = new Grid(3, 3);
+        const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
         const newPosition = robot.manageInstruction('F', grid);
 
@@ -210,7 +211,7 @@ describe('Robot', () => {
           orientation: 'N',
         };
         const robot = new Robot({ ...position });
-        const grid = new Grid(3, 3);
+        const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
         const newPosition = robot.manageInstruction('F', grid);
 
@@ -225,7 +226,7 @@ describe('Robot', () => {
           orientation: 'S',
         };
         const robot = new Robot({ ...position });
-        const grid = new Grid(3, 3);
+        const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
         const newPosition = robot.manageInstruction('F', grid);
 
@@ -240,7 +241,7 @@ describe('Robot', () => {
           orientation: 'E',
         };
         const robot = new Robot({ ...position });
-        const grid = new Grid(3, 3);
+        const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
         const newPosition = robot.manageInstruction('F', grid);
 
@@ -255,7 +256,7 @@ describe('Robot', () => {
           orientation: 'W',
         };
         const robot = new Robot({ ...position });
-        const grid = new Grid(3, 3);
+        const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
 
         const newPosition = robot.manageInstruction('F', grid);
 
@@ -272,9 +273,12 @@ describe('Robot', () => {
           orientation: 'N',
         };
         const robot = new Robot({ ...position });
-        const grid = new Grid(3, 3);
+        const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
         grid.scentPositions = [
-          { xPosition: position.xCoordinate, yPosition: position.yCoordinate },
+          {
+            xCoordinate: position.xCoordinate,
+            yCoordinate: position.yCoordinate,
+          },
         ];
 
         const newPosition = robot.manageInstruction('F', grid);
@@ -290,9 +294,12 @@ describe('Robot', () => {
           orientation: 'S',
         };
         const robot = new Robot({ ...position });
-        const grid = new Grid(3, 3);
+        const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
         grid.scentPositions = [
-          { xPosition: position.xCoordinate, yPosition: position.yCoordinate },
+          {
+            xCoordinate: position.xCoordinate,
+            yCoordinate: position.yCoordinate,
+          },
         ];
 
         const newPosition = robot.manageInstruction('F', grid);
@@ -308,9 +315,12 @@ describe('Robot', () => {
           orientation: 'E',
         };
         const robot = new Robot({ ...position });
-        const grid = new Grid(3, 3);
+        const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
         grid.scentPositions = [
-          { xPosition: position.xCoordinate, yPosition: position.yCoordinate },
+          {
+            xCoordinate: position.xCoordinate,
+            yCoordinate: position.yCoordinate,
+          },
         ];
 
         const newPosition = robot.manageInstruction('F', grid);
@@ -326,9 +336,12 @@ describe('Robot', () => {
           orientation: 'W',
         };
         const robot = new Robot({ ...position });
-        const grid = new Grid(3, 3);
+        const grid = new Grid({ xCoordinate: 3, yCoordinate: 3 });
         grid.scentPositions = [
-          { xPosition: position.xCoordinate, yPosition: position.yCoordinate },
+          {
+            xCoordinate: position.xCoordinate,
+            yCoordinate: position.yCoordinate,
+          },
         ];
 
         const newPosition = robot.manageInstruction('F', grid);
