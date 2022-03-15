@@ -11,6 +11,7 @@ export interface Position {
 
 export class Robot {
   public position: Position;
+  public isLost = false;
 
   constructor(position: Position) {
     this.position = position;
@@ -114,6 +115,6 @@ export class Robot {
   }
 
   private manageOffTheGridMovement(position: Position, grid: Grid) {
-    console.log('I AM LOST');
+    this.isLost = true;
   }
 }

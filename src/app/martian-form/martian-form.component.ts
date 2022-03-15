@@ -87,12 +87,20 @@ export class MartianFormComponent implements OnInit {
     // For loop with the instructions array
     for (let index = 0; index < robotInstructionArray.length; index++) {
       const instruction = robotInstructionArray[index];
-      robot.manageInstruction(instruction as Instruction, grid);
+      // If Robot is not lost, continue the loop, if not, break it
+      if (!robot.isLost) {
+        robot.manageInstruction(instruction as Instruction, grid);
+      } else {
+        break;
+      }
     }
   }
 
   private buildOutput(robot: Robot) {
     let finalPosition = `${robot.position.xCoordinate} ${robot.position.yCoordinate} ${robot.position.orientation}`;
+    if (robot.isLost) {
+      finalPosition += ' LOST';
+    }
 
     console.log('FINAL POSITION: ', finalPosition);
     this.outputCommands.push(finalPosition);
