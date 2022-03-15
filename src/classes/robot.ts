@@ -115,6 +115,21 @@ export class Robot {
   }
 
   private manageOffTheGridMovement(position: Position, grid: Grid) {
-    this.isLost = true;
+    const isScent = !!grid.findScentInPosition({
+      xPosition: position.xCoordinate,
+      yPosition: position.yCoordinate,
+    });
+    console.log('SCENT FOUND??', isScent);
+    if (!isScent) {
+      this.isLost = true;
+      grid.scentPositions.push({
+        xPosition: position.xCoordinate,
+        yPosition: position.yCoordinate,
+      });
+      console.log(
+        'I AM LOST!!, SCENT ADDED IN POSITION: ',
+        `${position.xCoordinate} ${position.yCoordinate}`
+      );
+    }
   }
 }
