@@ -1,4 +1,5 @@
 import { Position, Robot } from './robot';
+import { Grid } from './grid';
 
 describe('Robot', () => {
   it('can load instance', () => {
@@ -10,6 +11,8 @@ describe('Robot', () => {
     const robot = new Robot({ ...position });
 
     expect(robot).toBeTruthy();
+    expect(robot.position).toEqual(position);
+    expect(robot.isLost).toEqual(false);
   });
 
   describe('turnLeft Method', () => {
@@ -19,10 +22,10 @@ describe('Robot', () => {
         yCoordinate: 1,
         orientation: 'N',
       };
-
       const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
 
-      const newPosition = robot.manageInstruction('L');
+      const newPosition = robot.manageInstruction('L', grid);
 
       expect(robot.position).toEqual(newPosition);
       expect(position).not.toEqual(newPosition);
@@ -35,8 +38,9 @@ describe('Robot', () => {
         orientation: 'S',
       };
       const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
 
-      const newPosition = robot.manageInstruction('L');
+      const newPosition = robot.manageInstruction('L', grid);
 
       expect(robot.position).toEqual(newPosition);
       expect(position).not.toEqual(newPosition);
@@ -49,8 +53,9 @@ describe('Robot', () => {
         orientation: 'E',
       };
       const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
 
-      const newPosition = robot.manageInstruction('L');
+      const newPosition = robot.manageInstruction('L', grid);
 
       expect(robot.position).toEqual(newPosition);
       expect(position).not.toEqual(newPosition);
@@ -63,8 +68,9 @@ describe('Robot', () => {
         orientation: 'W',
       };
       const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
 
-      const newPosition = robot.manageInstruction('L');
+      const newPosition = robot.manageInstruction('L', grid);
 
       expect(robot.position).toEqual(newPosition);
       expect(position).not.toEqual(newPosition);
@@ -79,8 +85,9 @@ describe('Robot', () => {
         orientation: 'N',
       };
       const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
 
-      const newPosition = robot.manageInstruction('R');
+      const newPosition = robot.manageInstruction('R', grid);
 
       expect(robot.position).toEqual(newPosition);
       expect(position).not.toEqual(newPosition);
@@ -93,8 +100,9 @@ describe('Robot', () => {
         orientation: 'S',
       };
       const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
 
-      const newPosition = robot.manageInstruction('R');
+      const newPosition = robot.manageInstruction('R', grid);
 
       expect(robot.position).toEqual(newPosition);
       expect(position).not.toEqual(newPosition);
@@ -107,8 +115,9 @@ describe('Robot', () => {
         orientation: 'E',
       };
       const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
 
-      const newPosition = robot.manageInstruction('R');
+      const newPosition = robot.manageInstruction('R', grid);
 
       expect(robot.position).toEqual(newPosition);
       expect(position).not.toEqual(newPosition);
@@ -121,8 +130,9 @@ describe('Robot', () => {
         orientation: 'W',
       };
       const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
 
-      const newPosition = robot.manageInstruction('R');
+      const newPosition = robot.manageInstruction('R', grid);
 
       expect(robot.position).toEqual(newPosition);
       expect(position).not.toEqual(newPosition);
@@ -137,8 +147,9 @@ describe('Robot', () => {
         orientation: 'N',
       };
       const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
 
-      const newPosition = robot.manageInstruction('F');
+      const newPosition = robot.manageInstruction('F', grid);
 
       expect(robot.position).toEqual(newPosition);
       expect(position).not.toEqual(newPosition);
@@ -151,8 +162,9 @@ describe('Robot', () => {
         orientation: 'S',
       };
       const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
 
-      const newPosition = robot.manageInstruction('F');
+      const newPosition = robot.manageInstruction('F', grid);
 
       expect(robot.position).toEqual(newPosition);
       expect(position).not.toEqual(newPosition);
@@ -165,8 +177,9 @@ describe('Robot', () => {
         orientation: 'E',
       };
       const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
 
-      const newPosition = robot.manageInstruction('F');
+      const newPosition = robot.manageInstruction('F', grid);
 
       expect(robot.position).toEqual(newPosition);
       expect(position).not.toEqual(newPosition);
@@ -179,11 +192,74 @@ describe('Robot', () => {
         orientation: 'W',
       };
       const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
 
-      const newPosition = robot.manageInstruction('F');
+      const newPosition = robot.manageInstruction('F', grid);
 
       expect(robot.position).toEqual(newPosition);
       expect(position).not.toEqual(newPosition);
+    });
+  });
+
+  describe('Outside the grid without scent', () => {
+    it(`N orientation returns same position and true isLost flag`, () => {
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 3,
+        orientation: 'N',
+      };
+      const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
+
+      const newPosition = robot.manageInstruction('F', grid);
+
+      expect(position).toEqual(newPosition);
+      expect(robot.isLost).toBe(true);
+    });
+
+    it(`S orientation returns same position and true isLost flag`, () => {
+      const position: Position = {
+        xCoordinate: 1,
+        yCoordinate: 0,
+        orientation: 'S',
+      };
+      const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
+
+      const newPosition = robot.manageInstruction('F', grid);
+
+      expect(position).toEqual(newPosition);
+      expect(robot.isLost).toBe(true);
+    });
+
+    it(`E orientation returns same position and true isLost flag`, () => {
+      const position: Position = {
+        xCoordinate: 3,
+        yCoordinate: 1,
+        orientation: 'E',
+      };
+      const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
+
+      const newPosition = robot.manageInstruction('F', grid);
+
+      expect(position).toEqual(newPosition);
+      expect(robot.isLost).toBe(true);
+    });
+
+    it(`W orientation returns same position and true isLost flag`, () => {
+      const position: Position = {
+        xCoordinate: 0,
+        yCoordinate: 1,
+        orientation: 'W',
+      };
+      const robot = new Robot({ ...position });
+      const grid = new Grid(3, 3);
+
+      const newPosition = robot.manageInstruction('F', grid);
+
+      expect(position).toEqual(newPosition);
+      expect(robot.isLost).toBe(true);
     });
   });
 });
