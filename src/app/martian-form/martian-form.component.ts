@@ -38,7 +38,6 @@ export class MartianFormComponent implements OnInit {
     this.outputCommands = [];
 
     const fullCommand: MartianCommandForm = this.martianForm?.value;
-    console.log('FORM VALUE ON SUBMIT:', fullCommand);
 
     const grid = this.createGrid(fullCommand.gridDimensions);
     this.manageRobotCommands(fullCommand.robotCommand, grid);
