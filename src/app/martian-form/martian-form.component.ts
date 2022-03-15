@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Grid } from 'src/classes/grid';
-import { Instruction, Orientation, Robot } from 'src/classes/robot';
+import { Grid } from '../../app/classes/grid';
+import { Instruction, Orientation, Robot } from '../../app/classes/robot';
 
 export interface MartianCommandForm {
   gridDimensions: string;
