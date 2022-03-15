@@ -66,6 +66,8 @@ export class MartianFormComponent implements OnInit {
       const robot = this.createRobot(robotCommand[0]);
 
       this.manageInstructions(robot, robotCommand[1]);
+
+      this.buildOutput(robot);
     });
   }
 
@@ -89,5 +91,12 @@ export class MartianFormComponent implements OnInit {
       const instruction = robotInstructionArray[index];
       robot.manageInstruction(instruction as Instruction);
     }
+  }
+
+  private buildOutput(robot: Robot) {
+    let finalPosition = `${robot.position.xCoordinate} ${robot.position.yCoordinate} ${robot.position.orientation}`;
+
+    console.log('FINAL POSITION: ', finalPosition);
+    this.outputCommands.push(finalPosition);
   }
 }

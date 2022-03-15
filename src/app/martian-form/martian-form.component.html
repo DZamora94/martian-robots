@@ -18,3 +18,8 @@
     Submit
   </button>
 </form>
+
+<div class="output-container">
+  <p *ngIf="outputCommands.length > 0">OUTPUT:</p>
+  <p *ngFor="let output of outputCommands">{{ output }}</p>
+</div>
