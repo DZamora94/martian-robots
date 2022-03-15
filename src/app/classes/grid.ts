@@ -1,7 +1,4 @@
-export interface ScentPosition {
-  xPosition: number;
-  yPosition: number;
-}
+import { ScentPosition } from '../models/martian.model';
 
 export class Grid {
   public xGrid: number;

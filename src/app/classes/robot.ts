@@ -1,13 +1,5 @@
+import { Position, Instruction, Orientation } from '../models/martian.model';
 import { Grid } from './grid';
-
-export type Orientation = 'N' | 'S' | 'E' | 'W';
-export type Instruction = 'L' | 'R' | 'F';
-
-export interface Position {
-  xCoordinate: number;
-  yCoordinate: number;
-  orientation: Orientation;
-}
 
 export class Robot {
   public position: Position;

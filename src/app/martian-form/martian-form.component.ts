@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Grid } from '../../app/classes/grid';
-import { Instruction, Orientation, Robot } from '../../app/classes/robot';
-
-export interface MartianCommandForm {
-  gridDimensions: string;
-  robotCommand: string;
-}
+import { Robot } from '../classes/robot';
+import {
+  MartianCommandForm,
+  Orientation,
+  Instruction,
+} from '../models/martian.model';
 
 @Component({
   selector: 'app-martian-form',
